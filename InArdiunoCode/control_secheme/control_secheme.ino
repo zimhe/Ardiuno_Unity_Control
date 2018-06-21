@@ -1,6 +1,6 @@
 
 int input1 = 2; // Define the pin number on ardiuno board(as much as you need) 
-int input2 = 3; // Define the pin number on ardiuno board
+int input2 = 4; // Define the pin number on ardiuno board
 // 
 
 int action;
@@ -26,17 +26,14 @@ void loop()
 
 }
 
-
-
 //Check the input singnal from unity corresponds to which motor
 //the variable "index" is the ID of the Motor(a single letter or number inputs from unity), "inputPin0","inputPin1" is the two pins connected to the motor
 void MotorIndexCheck(int index,int inputPin0,int inputPin1)
 {
    if(Serial.available()>0)
   {
-    while (Serial.peek()==index)
+    if (Serial.read()==index)
     {
-      Serial.read();
       action=Serial.parseInt();
 
       if(action==0)
@@ -55,10 +52,6 @@ void MotorIndexCheck(int index,int inputPin0,int inputPin1)
         digitalWrite(inputPin0,LOW);
         digitalWrite(inputPin1,LOW);
        }
-      }
-      while (Serial.available()>0)
-      {
-        Serial.read();
       }
   }
 }
